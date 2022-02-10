@@ -8,93 +8,95 @@ use serde::{Deserialize, Serialize};
 // time is in milliseconds
 
 #[derive(Serialize, Deserialize, Debug)]
+#[serde(rename_all = "camelCase")]
 struct Timezone {
     current_zone: String,
 }
 #[derive(Serialize, Deserialize, Debug)]
+#[serde(rename_all = "camelCase")]
 struct ServerTime {
     time: u32,
 }
 #[derive(Serialize, Deserialize, Debug)]
+#[serde(rename_all = "camelCase")]
 struct RateLimit {
-    rateLimitType: String,
+    rate_limit_type: String,
     interval: String,
-    intervalNum: u32,
+    interval_num: u32,
     limit: u32,
 }
-// #[derive(Serialize, Deserialize, Debug)]
-// struct RateLimits {
-//     tmp_rate: Vec<RateLimit>,
-// }
 #[derive(Serialize, Deserialize, Debug)]
+#[serde(rename_all = "camelCase")]
 struct ExchangeFilters {
     filters: Vec<u32>,
 }
-// Put the Filter inside the filters in Symbol, when u make it work
-// #[derive(Serialize, Deserialize, Debug)]
-// struct PriceFilter {
-//     filter_type: String,
-//     min_price: String,
-//     max_price: String,
-//     tick_size: String,
-// }
 #[derive(Serialize, Deserialize, Debug)]
+#[serde(rename_all = "camelCase")]
 struct PriceFilter {
-    filterType: String,
-    minPrice: String,
-    maxPrice: String,
-    tickSize: String,
+    filter_type: String,
+    min_price: String,
+    max_price: String,
+    tick_size: String,
 }
 #[derive(Serialize, Deserialize, Debug)]
+#[serde(rename_all = "camelCase")]
 struct PercentPrice {
-    filterType: String,
-    multiplierUp: String,
-    multiplierDown: String,
-    avgPriceMins: u32,
+    filter_type: String,
+    multiplier_up: String,
+    multiplier_down: String,
+    avg_price_mins: u32,
 }
 #[derive(Serialize, Deserialize, Debug)]
+#[serde(rename_all = "camelCase")]
 struct LotSize {
-    filterType: String,
-    minQty: String,
-    maxQty: String,
-    stepSize: String,
+    filter_type: String,
+    min_qty: String,
+    max_qty: String,
+    step_size: String,
 }
 #[derive(Serialize, Deserialize, Debug)]
+#[serde(rename_all = "camelCase")]
 struct MinNotional {
-    filterType: String,
-    minNotional: String,
-    applyToMarket: bool,
-    avgPriceMins: u32,
+    filter_type: String,
+    min_notional: String,
+    apply_to_market: bool,
+    avg_price_mins: u32,
 }
 #[derive(Serialize, Deserialize, Debug)]
+#[serde(rename_all = "camelCase")]
 struct IcebergParts {
-    filterType: String,
+    filter_type: String,
     limit: u32,
 }
 #[derive(Serialize, Deserialize, Debug)]
+#[serde(rename_all = "camelCase")]
 struct MarketLotSize {
-    filterType: String,
-    minQty: String,
-    maxQty: String,
-    stepSize: String,
+    filter_type: String,
+    min_qty: String,
+    max_qty: String,
+    step_size: String,
 }
 #[derive(Serialize, Deserialize, Debug)]
+#[serde(rename_all = "camelCase")]
 struct MaxNumOrders {
-    filterType: String,
-    maxNumOrders: u32,
+    filter_type: String,
+    max_num_orders: u32,
 }
 #[derive(Serialize, Deserialize, Debug)]
+#[serde(rename_all = "camelCase")]
 struct MaxNumAlgoOrders {
-    filterType: String,
-    maxNumAlgoOrders: u32,
+    filter_type: String,
+    max_num_algo_orders: u32,
 }
 #[derive(Serialize, Deserialize, Debug)]
+#[serde(rename_all = "camelCase")]
 struct MaxPosition {
-    filterType: String,
-    maxPosition: String,
+    filter_type: String,
+    max_position: String,
 }
 #[derive(Serialize, Deserialize, Debug)]
 #[serde(untagged)]
+#[serde(rename_all = "camelCase")]
 enum Filters {
     PriceFilter(PriceFilter),
     PercentPrice(PercentPrice),
@@ -107,22 +109,23 @@ enum Filters {
     MaxPosition(MaxPosition),
 }
 #[derive(Serialize, Deserialize, Debug)]
+#[serde(rename_all = "camelCase")]
 struct Symbol {
     symbol: String,
     status: String,
-    baseAsset: String,
-    baseAssetPrecision: u32,
-    quoteAsset: String,
-    quotePrecision: u32,
-    quoteAssetPrecision: u32,
-    baseCommissionPrecision: u32,
-    quoteCommissionPrecision: u32,
-    orderTypes: Vec<String>,
-    icebergAllowed: bool,
-    ocoAllowed: bool,
-    quoteOrderQtyMarketAllowed: bool,
-    isSpotTradingAllowed: bool,
-    isMarginTradingAllowed: bool,
+    base_asset: String,
+    base_asset_precision: u32,
+    quote_asset: String,
+    quote_precision: u32,
+    quote_asset_precision: u32,
+    base_commission_precision: u32,
+    quote_commission_precision: u32,
+    order_types: Vec<String>,
+    iceberg_allowed: bool,
+    oco_allowed: bool,
+    quote_order_qty_market_allowed: bool,
+    is_spot_trading_allowed: bool,
+    is_margin_trading_allowed: bool,
     filters: Vec<Filters>,
     permissions: Vec<String>,
 }
@@ -139,11 +142,12 @@ struct Symbol {
 //     symbols: Symbols,
 // }
 #[derive(Serialize, Deserialize, Debug)]
+#[serde(rename_all = "camelCase")]
 struct APIResponse {
     timezone: String,
-    serverTime: u64,
-    rateLimits: Vec<RateLimit>, // RateLimits,
-    exchangeFilters: Vec<u32>,
+    server_time: u64,
+    rate_limits: Vec<RateLimit>, // RateLimits,
+    exchange_filters: Vec<u32>,
     symbols: Vec<Symbol>,
 }
 // #[derive(Serialize, Deserialize, Debug)]
@@ -154,14 +158,55 @@ struct APIResponse {
 //     exchange_filters: serde_json::Value,
 //     symbols: serde_json::Value,
 // }
+//
+#[derive(Serialize, Deserialize, Debug)]
+#[serde(untagged)]
+enum Kline {
+    Why(String),
+    Yes(u64),
+}
+
+// #[derive(Serialize, Deserialize, Debug)]
+// struct Tmp {
+//     Vec<Kline>,
+// }
+// #[derive(Serialize, Deserialize, Debug)]
+// struct Test {
+//     Vec<Tmp>,
+// }
+
+async fn kline(symbol) -> Vec<Vec<Kline>> {
+    let response = reqwest::get(format!("https://api.binance.com/api/v3/klines?symbol={}&interval=1h", {symbol}))
+        .await?
+        // .json::<Vec<Vec<Kline>>>()
+        .json::Test()
+        .await?;
+    response
+}
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let response = reqwest::get("https://www.binance.com/api/v3/exchangeInfo")
-        .await?
-        .json::<APIResponse>()
-        .await?;
-    println!("{:#?}", response.timezone);
+    // post request example
+    // let client = reqwest::Client::new();
+    // let response = client.post("https://www.binance.com/api/v3/exchangeInfo")
+    //     .send()
+    //     .await?
+    //     .json::<APIResponse>()
+    //     .await?;
+    //
+    // let response = reqwest::get("https://www.binance.com/api/v3/exchangeInfo")
+    //     .await?
+    //     .json::<APIResponse>()
+    //     .await?;
+    // println!("{:#?}", response.symbols);
+
+    let symbol = "BNBBTC";
+    // let response = reqwest::get(format!("https://api.binance.com/api/v3/klines?symbol={}&interval=1h", {symbol}))
+    //     .await?
+    //     .json::<Vec<Vec<Kline>>>()
+    //     .await?;
+    let response = kline(&symbol);
+    println!("{:#?}", response);
 
     Ok(())
 }
