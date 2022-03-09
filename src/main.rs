@@ -168,19 +168,19 @@ enum Kline {
 
 // #[derive(Serialize, Deserialize, Debug)]
 // struct Tmp {
-//     Vec<Kline>,
+//     a: Vec<Kline>,
 // }
 // #[derive(Serialize, Deserialize, Debug)]
 // struct Test {
 //     Vec<Tmp>,
 // }
 
-async fn kline(symbol) -> Vec<Vec<Kline>> {
+async fn kline(symbol: &str) -> Vec<Vec<Kline>> {
     let response = reqwest::get(format!("https://api.binance.com/api/v3/klines?symbol={}&interval=1h", {symbol}))
-        .await?
-        // .json::<Vec<Vec<Kline>>>()
-        .json::Test()
-        .await?;
+        .await.unwrap()
+        .json::<Vec<Vec<Kline>>>()
+        // .json::<Vec<Tmp>>()
+        .await.unwrap();
     response
 }
 
@@ -201,12 +201,9 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     // println!("{:#?}", response.symbols);
 
     let symbol = "BNBBTC";
-    // let response = reqwest::get(format!("https://api.binance.com/api/v3/klines?symbol={}&interval=1h", {symbol}))
-    //     .await?
-    //     .json::<Vec<Vec<Kline>>>()
-    //     .await?;
-    let response = kline(&symbol);
-    println!("{:#?}", response);
+    let response = kline(&symbol).await;
+    // let response = kline(String::from_str(symbol));
+    println!("{:#?}", response[0]);
 
     Ok(())
 }
