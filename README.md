@@ -1,1 +1,1 @@
-Binance API through rust
+# Accessing Binance's API through rust
