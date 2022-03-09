@@ -1,51 +1,13 @@
 // use std::collections::HashMap;
-use bin_bot::json_formats::Kline;
+// use bin_bot::json_formats;
+use bin_bot::endpoints;
 // use serde_json::{Result, Value};
 // use serde_json;
 // use std::io::Result;
-//
 
-// time is in milliseconds
-
-// #[derive(Serialize, Deserialize, Debug)]
-// struct Symbols {
-//     tmp_symb: String,
+// async fn exc_info() -> json_formats::APIResponse {
+// 
 // }
-// #[derive(Serialize, Deserialize, Debug)]
-// struct APIResponse {
-//     timezone: Timezone,
-//     server_time: ServerTime,
-//     rate_limits: RateLimits,
-//     exchange_filters: ExchangeFilters,
-//     symbols: Symbols,
-// }
-// #[derive(Serialize, Deserialize, Debug)]
-// struct APIResponse {
-//     timezone: serde_json::Value,
-//     server_time: serde_json::Value,
-//     rate_limits: serde_json::Value,
-//     exchange_filters: serde_json::Value,
-//     symbols: serde_json::Value,
-// }
-//
-
-// #[derive(Serialize, Deserialize, Debug)]
-// struct Tmp {
-//     a: Vec<Kline>,
-// }
-// #[derive(Serialize, Deserialize, Debug)]
-// struct Test {
-//     Vec<Tmp>,
-// }
-
-async fn kline(symbol: &str) -> Vec<Vec<Kline>> {
-    let response = reqwest::get(format!("https://api.binance.com/api/v3/klines?symbol={}&interval=1h", {symbol}))
-        .await.unwrap()
-        .json::<Vec<Vec<Kline>>>()
-        // .json::<Vec<Tmp>>()
-        .await.unwrap();
-    response
-}
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -62,11 +24,15 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     //     .json::<APIResponse>()
     //     .await?;
     // println!("{:#?}", response.symbols);
+    //
+    
+    let response = endpoints::exc_info().await?;
+    println!("{:#?}", response);
 
-    let symbol = "BNBBTC";
-    let response = kline(&symbol).await;
-    // let response = kline(String::from_str(symbol));
-    println!("{:#?}", response[0]);
+    // let symbol = "BNBBTC";
+    // let response = endpoints::kline(&symbol).await?;
+    // // let response = kline(String::from_str(symbol));
+    // println!("{:#?}", response[0]);
 
     Ok(())
 }
