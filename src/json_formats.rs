@@ -125,7 +125,7 @@ struct Symbol {
 
 #[derive(Serialize, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
-struct APIResponse {
+pub struct APIResponse {
     timezone: String,
     server_time: u64,
     rate_limits: Vec<RateLimit>, // RateLimits,
